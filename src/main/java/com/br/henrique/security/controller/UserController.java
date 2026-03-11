@@ -30,7 +30,7 @@ public class UserController {
     }
 
     @PutMapping(value = "/users/method/{id}")
-    public ResponseEntity updateUser(@PathVariable ("id") Long id ,@RequestBody User user) {
+    public ResponseEntity updateUserbyId(@PathVariable ("id") Long id ,@RequestBody User user) {
         return userRepository.findById(id)
                 .map(u -> {
                     u.setName(user.getName());
