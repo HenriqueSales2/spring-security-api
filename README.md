@@ -47,6 +47,8 @@ Como o projeto utiliza Maven, basta instalar as dependências com:
 mvn clean install
 ```
 
+---
+
 # Estrutura do Projeto
 
 A estrutura principal do projeto segue o padrão de aplicações Spring Boot:
@@ -67,6 +69,8 @@ spring-security-api/
 └── README.md
 ```
 
+---
+
 # Executando o Projeto
 
 Para iniciar a aplicação utilize o comando:
@@ -83,7 +87,7 @@ Após iniciar, a API estará disponível por padrão na URL:
 http://localhost:8080
 ```
 
-Testando os Endpoints
+# Testando os Endpoints
 
 Você pode testar os endpoints utilizando ferramentas como:
 
@@ -94,12 +98,16 @@ Você pode testar os endpoints utilizando ferramentas como:
 
 Dependendo da configuração de segurança, alguns endpoints podem exigir autenticação para acesso.
 
+---
+
 # Tecnologias Utilizadas
 
 - Java
 - Spring Boot
 - Spring Security
 - Maven
+
+--- 
 
 # Objetivo do Projeto
 
@@ -109,11 +117,54 @@ Dependendo da configuração de segurança, alguns endpoints podem exigir autent
 - Estruturação de projetos com Spring Boot
 - Boas práticas no desenvolvimento de APIs REST
 
+---  
 
 # IMPORTANTE
 
  Nesse projeto foi usado o Postman para testes de Endpoints e o H2 Database para armazenar os dados em cache.
- Porém, para listar os usuários por exemplo, foi usado a URL do H2 Database (localhost:8080/h2-console), para listar
- todos os usuários só é necessário colocar o username e password que está no application.properties do projeto, caso queira
- mudar fique a vontade, porém na hora de acessar precisa ser o mesmo username e password do application.properties.
- Para postar um usuário no sistema, foi usado o Postman.
+ Existem dois usuários padrões que coloquei no projeto, sendo eles o admin com permissões e acesso a ROLES de MANAGERS,
+ e o outro com o nome de user com permissões e acesso a ROLE de USERS.
+ Para Fazer todos os comandos é necessário no seu Postman, (ferramenta que usei) na aba Authorization
+ selecionar a opção Basic Auth e enfim colocar os campos que irei fornecer abaixo.
+
+ - **Username: admin ou user**
+ - **Password: master123 ou user123**
+
+---
+
+# COMANDOS
+
+- **POST(CRIAR USUÁRIO)** - para adicionar um novo usuário ao Banco de Dados em cache
+```
+http://localhost:8080/users/method
+```
+---
+- **GET(LISTAR USUÁRIOS)** - para listar usamos a mesma URL, é só mudar o método de "POST" para "GET" no Postman, que é a ferramenta onde testo os Endpoints.
+```
+http://localhost:8080/users/method
+```
+---
+- **PUT(ATUALIZAR USUÁRIO)** - para atualizar basta colocar o id depois da barra, mudar o método para "PUT" e na opção body mudar os dados.
+```
+http://localhost:8080/users/method/{id}
+```
+---
+- **DELETE(DELETAR USUÁRIO)** - para deletar basta fazer o mesmo, porém não é para colocar nada no body, e também mudar para o método "DELETE".
+```
+http://localhost:8080/users/method/{id}
+```
+---
+- **GET(LISTAR POR ID)** - também adicionei a função de retornar o usuário pelo id.
+```
+http://localhost:8080/users/method/{id}
+```
+---
+- **AUTHORIZED MANAGER** - vai aparecer "Authorized manager", serve para confirmar que o acesso está funcionando, a ROLE que tem acesso a essa URL é apenas a "MANAGERS".
+```
+http://localhost:8080/managers
+```
+---
+- **AUTHORIZED USER** - vai aparecer "Authorized user", serve para confirmar que o acesso está funcionando, as ROLES que tem acesso a essa URL são "USERS" e "MANAGERS".
+```
+http://localhost:8080/users
+```
