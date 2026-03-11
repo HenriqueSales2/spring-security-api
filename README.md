@@ -21,7 +21,7 @@ A aplicação demonstra conceitos básicos de segurança em APIs, como controle 
 Para executar o projeto é necessário ter instalado na sua máquina:
 
 - Git  
-- Java 17 ou superior  
+- Java 17 ou Superior
 - Maven  
 - Uma IDE Java (IntelliJ, Eclipse ou VS Code)
 
@@ -90,6 +90,7 @@ Você pode testar os endpoints utilizando ferramentas como:
 - Postman
 - Insomnia
 - curl
+- H2 Console
 
 Dependendo da configuração de segurança, alguns endpoints podem exigir autenticação para acesso.
 
@@ -107,3 +108,12 @@ Dependendo da configuração de segurança, alguns endpoints podem exigir autent
 - Autenticação e autorização
 - Estruturação de projetos com Spring Boot
 - Boas práticas no desenvolvimento de APIs REST
+
+
+# IMPORTANTE
+
+ Nesse projeto foi usado o Postman para testes de Endpoints e o H2 Database para armazenar os dados em cache.
+ Porém, para listar os usuários por exemplo, foi usado a URL do H2 Database (localhost:8080/h2-console), para listar
+ todos os usuários só é necessário colocar o username e password que está no application.properties do projeto, caso queira
+ mudar fique a vontade, porém na hora de acessar precisa ser o mesmo username e password do application.properties.
+ Para postar um usuário no sistema, foi usado o Postman.
