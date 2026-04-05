@@ -5,12 +5,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
-import org.springframework.security.config.Customizer;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.AuthenticationProvider;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.NoOpPasswordEncoder;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.web.cors.CorsConfiguration;
@@ -41,7 +43,6 @@ public class WebSecurityConfig {
         auth.userDetailsService(securityService).passwordEncoder(passwordEncoderConfig.passwordEncoder());
     }
 
-    // ✅ 1. Bean de CORS — libera o front-end para chamar a API
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration config = new CorsConfiguration();
@@ -60,18 +61,17 @@ public class WebSecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .csrf(csrf -> csrf.disable())
-                .cors(cors -> cors.configurationSource(corsConfigurationSource())) //  Habilita CORS para liberar o CRUD no Front
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/").permitAll() // a rota principal qualquer pessoa consegue acessar
                         .requestMatchers(HttpMethod.POST, "/login").permitAll() // conseguimos especificar com o HttpMethod se queremos POST, PUT, GET, DELETE
                         .requestMatchers("/managers").hasRole("MANAGERS")
 //                        .requestMatchers("/user/**").hasRole("USERS")
                         .requestMatchers("/users").hasAnyRole("USERS", "MANAGERS")
-                                .requestMatchers(
-                                        "/swagger-ui/**", // Permitindo o Swagger na aplicação
-                                        "/v3/api-docs/**",
-                                        "/swagger-ui.html"
-                                ).permitAll()
+//                                .requestMatchers(
+//                                        "/swagger-ui/**",
+//                                        "/v3/api-docs/**",
+//                                        "/swagger-ui.html"
+//                                ).permitAll()
                                 .requestMatchers("/", "/index.html", "/**.css", "/**.js").permitAll()
                         .anyRequest().authenticated()
                 )
@@ -86,5 +86,4 @@ public class WebSecurityConfig {
 
         return http.build();
     }
-
 }

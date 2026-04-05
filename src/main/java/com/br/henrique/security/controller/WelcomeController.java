@@ -12,13 +12,13 @@ public class WelcomeController {
         return "Welcome to My Spring Boot Web API";
     }
 
-    @GetMapping("/users")
+    @GetMapping("/welcome")
     @PreAuthorize("hasAnyRole('MANAGERS','USERS')") // os dois perfis podem acessar a rota user
     public String users() {
         return "Authorized user";
     }
 
-    @GetMapping("/managers")
+    @GetMapping("/welcome/managers")
     @PreAuthorize("hasRole('MANAGERS')") // só o perfil manager vai ser capaz de chamar esse recurso
     public String managers() {
         return "Authorized manager";
