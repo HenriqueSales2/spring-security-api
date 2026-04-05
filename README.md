@@ -124,13 +124,13 @@ Os testes dos endpoints foram realizados utilizando o Postman, com persistência
 
 A aplicação conta com dois perfis de usuário pré-configurados para fins de autenticação e autorização:
 
-admin → acesso com permissões de gerenciamento (ROLE_MANAGER)
-user → acesso padrão (ROLE_USER)
+- admin → acesso com permissões de gerenciamento (ROLE_MANAGER)
+- user → acesso padrão (ROLE_USER)
 
 Para consumir os endpoints, utilize autenticação Basic Auth no Postman com as seguintes credenciais:
 
-Username: admin | user
-Password: master123 | user123
+- Login Admin: admin | master123
+- Login User: user | user123
 
 ---
 
